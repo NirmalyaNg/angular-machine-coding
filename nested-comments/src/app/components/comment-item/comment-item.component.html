@@ -1,0 +1,22 @@
+<li class="comment-item">
+  <div class="comment-info">
+    <div class="comment-content">
+      <h4>{{ comment.author }}</h4>
+      <p>{{ comment.date | date : "medium" }}</p>
+      <p>{{ comment.text }}</p>
+    </div>
+    <div
+      class="comment-child-toggle"
+      *ngIf="comment.children && comment.children.length > 0"
+      (click)="onToggleChild(comment.id)"
+    >
+      <ng-container *ngIf="activeState[comment.id]"> - </ng-container>
+      <ng-container *ngIf="!activeState[comment.id]"> + </ng-container>
+    </div>
+  </div>
+  <ng-container *ngIf="comment.children && comment.children.length > 0">
+    <ng-container *ngIf="activeState[comment.id]">
+      <app-comment-list [data]="comment.children"></app-comment-list>
+    </ng-container>
+  </ng-container>
+</li>
